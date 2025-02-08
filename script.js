@@ -1,4 +1,4 @@
-const DEBUG_MODE = true; // Set to true for debugging, false for real API calls
+const DEBUG_MODE = false; // Set to true for debugging, false for real API calls
 
 document.getElementById("callDroneBtn").addEventListener("click", function () {
     const button = this;
@@ -20,7 +20,7 @@ document.getElementById("callDroneBtn").addEventListener("click", function () {
     }
 
     // Real API call if DEBUG_MODE is false
-    fetch('http://localhost:3000/send-sms', {
+    fetch('https://aerocall.onrender.com/send-sms', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
