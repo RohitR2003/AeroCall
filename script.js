@@ -1,4 +1,4 @@
-const DEBUG_MODE = true; // Set to true for debugging, false for real API calls
+const DEBUG_MODE = false; // Set to true for debugging, false for real API calls
 
 document.getElementById("callDroneBtn").addEventListener("click", function () {
     const button = this;
