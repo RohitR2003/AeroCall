@@ -13,7 +13,7 @@ const twilioNumber = '+16677713723';
 const client = new twilio(accountSid, authToken);
 
 // ✅ Enable CORS for Frontend URL
-app.use(cors({ origin: 'http://localhost:63342' }));
+app.use(cors({ origin: '*' }));
 app.use(express.json());
 
 // ✅ SMS API Endpoint
