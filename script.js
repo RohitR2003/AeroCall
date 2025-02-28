@@ -19,13 +19,12 @@ document.getElementById("callDroneBtn").addEventListener("click", function () {
         (position) => {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
-            const locationUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
 
             button.textContent = "Calling Drone...";
 
             // ✅ Step 2: Simulated or Real API Call
             if (DEBUG_MODE) {
-                console.log("Debug mode ON: Simulating SMS send with location");
+                console.log("Debug mode ON: Simulating location send", { latitude, longitude });
                 setTimeout(() => {
                     button.textContent = "Drone Called!";
                     button.style.backgroundColor = "#007bff"; // Blue color
@@ -40,7 +39,8 @@ document.getElementById("callDroneBtn").addEventListener("click", function () {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     to: '+919847690509',
-                    message: `Drone has been called! 📍 Location: ${locationUrl}`,
+                    latitude: latitude,
+                    longitude: longitude
                 }),
             })
                 .then(response => response.json())
