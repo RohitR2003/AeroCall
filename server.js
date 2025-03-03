@@ -18,7 +18,7 @@ app.use(express.json());
 
 // ✅ Function to Convert to GSM-7 Encoding (Fixes SIM800L UCS2 Issue)
 function convertToGSM7(text) {
-    const gsm7Chars = "@£$¥èéùìòÇ\nØø\rÅåΔ_ΦΓΛΩΠΨΣΘΞ\x1BÆæßÉ !\"#¤%&'()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÑÜ§¿abcdefghijklmnopqrstuvwxyzäöñüà";
+    const gsm7Chars = "@£$¥èéùìòÇ\nØø\rÅåΔ_ΦΓΛΩΠΨΣΘΞ\x1BÆæßÉ !\"#¤%&'()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÑÜ§¿abcdefghijklmnopqrstuvwxyzäöñüà";
     return text.split("").map(char => (gsm7Chars.includes(char) ? char : "?")).join(""); // Replace non-GSM7 chars
 }
 
@@ -31,7 +31,7 @@ app.post('/send-sms', async (req, res) => {
     }
 
     // ✅ Ensure Message is GSM-7 Encoded (Fix for SIM800L)
-    let messageBody = `Drone called! ${latitude},${longitude}`;
+    let messageBody = Drone called! ${latitude},${longitude};
     messageBody = convertToGSM7(messageBody);
 
     try {
@@ -45,4 +45,4 @@ app.post('/send-sms', async (req, res) => {
 });
 
 // ✅ Start Server
-app.listen(port, () => console.log(`🚀 Server running on http://localhost:${port}`));
+app.listen(port, () => console.log(🚀 Server running on http://localhost:${port}));
