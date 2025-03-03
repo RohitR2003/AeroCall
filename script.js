@@ -41,7 +41,7 @@ document.getElementById("callDroneBtn").addEventListener("click", function () {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    to: '+918138044516',
+                    to: '+919847690509',
                     latitude: latitude,
                     longitude: longitude
                 }),
