@@ -7,7 +7,7 @@ const port = 3000;
 
 // ✅ Twilio Credentials (Directly in Code)
 const accountSid = 'AC3bdfe45853860bad2307724f5522da23';
-const authToken = 'dc6484114be4be7e920ac40b0eaa0cd7';
+const authToken = '18decc05153be9240aa9be3f96f2f689';
 const twilioNumber = '+17177948897';
 
 const client = new twilio(accountSid, authToken);
