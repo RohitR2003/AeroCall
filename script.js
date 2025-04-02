@@ -1,10 +1,19 @@
 document.getElementById("callDroneBtn").addEventListener("click", function () {
     const button = this;
-    const latitude = document.getElementById("latitudeInput").value.trim();
-    const longitude = document.getElementById("longitudeInput").value.trim();
+    const locationInput = document.getElementById("locationInput").value.trim();
 
-    if (!latitude || !longitude || isNaN(latitude) || isNaN(longitude)) {
-        alert("Please enter valid latitude and longitude!");
+    // ✅ Validate input format
+    const coords = locationInput.split(",");
+    if (coords.length !== 2) {
+        alert("Please enter coordinates in the format: latitude,longitude");
+        return;
+    }
+
+    const latitude = parseFloat(coords[0].trim());
+    const longitude = parseFloat(coords[1].trim());
+
+    if (isNaN(latitude) || isNaN(longitude)) {
+        alert("Invalid coordinates! Please enter numeric values.");
         return;
     }
 
