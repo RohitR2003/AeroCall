@@ -77,7 +77,7 @@ document.getElementById("callDroneBtn").addEventListener("click", function () {
         },
         {
             enableHighAccuracy: true, // ✅ Forces GPS for better accuracy
-            timeout: 15000, // ⏳ Increased timeout for better results
+            timeout: 40000, // ⏳ Increased timeout for better results
             maximumAge: 0 // 🔄 Forces fresh GPS data
         }
     );
