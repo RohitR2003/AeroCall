@@ -7,7 +7,6 @@ document.getElementById("callDroneBtn").addEventListener("click", function () {
     button.textContent = "Getting Location...";
     button.disabled = true;
 
-    // ✅ Step 1: Check Geolocation Support
     if (!navigator.geolocation) {
         alert("Geolocation is not supported by your browser.");
         button.textContent = "Call Drone";
@@ -15,17 +14,28 @@ document.getElementById("callDroneBtn").addEventListener("click", function () {
         return;
     }
 
-    // ✅ Step 2: Request High Accuracy Location
+    // ✅ Request high-accuracy location
     navigator.geolocation.getCurrentPosition(
         (position) => {
-            const latitude = parseFloat(position.coords.latitude.toFixed(6)); // Round to 6 decimal places
-            const longitude = parseFloat(position.coords.longitude.toFixed(6));
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const accuracy = position.coords.accuracy; // Accuracy in meters
 
-            console.log("📍 Accurate Location Retrieved:", { latitude, longitude });
+            console.log("📍 Accurate Location Retrieved:", { latitude, longitude, accuracy });
+
+            // ✅ Ask user to confirm location
+            const confirmLocation = confirm(
+                `Your location is:\nLatitude: ${latitude}\nLongitude: ${longitude}\nAccuracy: ±${accuracy} meters\n\nIs this correct?`
+            );
+
+            if (!confirmLocation) {
+                button.textContent = "Call Drone";
+                button.disabled = false;
+                return;
+            }
 
             button.textContent = "Calling Drone...";
 
-            // ✅ Step 3: Debug Mode (Simulated Call)
             if (DEBUG_MODE) {
                 console.log("Debug mode ON: Simulating location send", { latitude, longitude });
                 setTimeout(() => {
@@ -36,7 +46,6 @@ document.getElementById("callDroneBtn").addEventListener("click", function () {
                 return;
             }
 
-            // ✅ Step 4: Send Location to Backend
             fetch('https://aerocall.onrender.com/send-sms', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -50,22 +59,26 @@ document.getElementById("callDroneBtn").addEventListener("click", function () {
                 .then(data => {
                     console.log("✅ Server Response:", data);
                     button.textContent = "Drone Called!";
-                    button.style.backgroundColor = "#007bff"; // Blue color
+                    button.style.backgroundColor = "#007bff";
                     drone.classList.add("drone-fly");
                 })
                 .catch(error => {
                     console.error("❌ Error sending SMS:", error);
                     button.textContent = "Try Again";
                     button.disabled = false;
-                    button.style.backgroundColor = "#dc3545"; // Red on error
+                    button.style.backgroundColor = "#dc3545";
                 });
         },
         (error) => {
             console.error("❌ Geolocation error:", error);
-            alert("Failed to get location. Please enable location services.");
+            alert("Failed to get location. Please enable location services and try again.");
             button.textContent = "Call Drone";
             button.disabled = false;
         },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 } // ✅ High Accuracy Mode
+        {
+            enableHighAccuracy: true, // ✅ Forces GPS for better accuracy
+            timeout: 15000, // ⏳ Increased timeout for better results
+            maximumAge: 0 // 🔄 Forces fresh GPS data
+        }
     );
 });
