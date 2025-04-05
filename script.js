@@ -24,7 +24,7 @@ document.getElementById("callDroneBtn").addEventListener("click", function () {
     fetch('https://aerocall.onrender.com/send-sms', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ to: '+918891216748', latitude, longitude }),
+        body: JSON.stringify({ to: '+918075539951', latitude, longitude }),
     })
     .then(response => response.json())
     .then(data => {
